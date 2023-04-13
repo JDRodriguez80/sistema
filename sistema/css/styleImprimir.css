@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+*{
+    margin: 5px;
+    padding: 5px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+@page {
+    size: letter;
+    font-size: medium;
+}
+
+img {
+
+    margin-left: 10px;
+    margin-right: 25px;
+    width: 90px;
+    height: 60px;
+    justify-content: center;
+    padding-bottom: 5px;
+    padding-top: 10px;
+
+}
+h1{
+    color:#0099E9;
+}
+table th{
+    text-align: left;
+    padding: 10px;
+    background:#4188ca;
+    color: white;
+    border-bottom:solid 5px #0F362D;
+}
+table tr:nth-child(even){
+    background: #ccc;
+}
+
+.btn_Guardar{
+    font-size: 12pt;
+    background: #5cb85c;
+    padding: 10px 0;
+    color: white;
+    letter-spacing: 1px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px auto;
+}
+.btn_Warning{
+    font-size: 12pt;
+    background: #ffc107;
+    padding: 10px 0;
+    color: white;
+    letter-spacing: 1px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px auto;
+
+}
+.btn_Danger{
+    font-size: 12pt;
+    background: #d9534f;
+    padding: 10px 0;
+    color: white;
+    letter-spacing: 1px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px auto;
+}
+.btn_Icon{
+    font-size: 18pt;
+    background: #000000;
+    padding: 10px 0;
+    color: white;
+    letter-spacing: 1px;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px auto;
+}
+.btn_secondary-color-dark{
+    font-size: 12pt;
+    background: #9933CC;
+    padding: 10px 0;
+    color: white;
+    letter-spacing: 1px;
+    border: 0;
+    cursor: pointer;
+    margin: 15px auto;
+}
+boton{
+    display: none;
+
+}
