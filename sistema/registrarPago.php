@@ -26,7 +26,7 @@ if ($nivel != 1 || $nivel != 2) {
     header('location index.php');
 }
 //haciendo consulta para obtener los datos del alumno
-$query = $con->prepare("SELECT * FROM alumnos order by curp asc");
+$query = $con->prepare("SELECT * FROM alumnos  order by alumnos.curp asc");
 
 ?>
 <!DOCTYPE html>
@@ -80,27 +80,7 @@ $query = $con->prepare("SELECT * FROM alumnos order by curp asc");
             </table>
         </div>
     </section>
-    <!-- script para generar tabla -->
-    <script type="text/javascript">
-        //jSModalEditar("",300);
-        function listar(idGrupo) {
-            var conexion;
-            if (idGrupo == "") {
-                document.getElementById("txtHint").innerHTML = "";
-                return;
-            }
-            if (window.XMLHttpRequest) {
-                conexion = new XMLHttpRequest();
-            }
-            conexion.onreadystatechange = function() {
-                if (conexion.readyState == 4 && conexion.status == 200) {
-                    document.getElementById("tbAlumnos").innerHTML = conexion.responseText;
-                }
-            }
-            conexion.open("GET", "alumnosPago.php?idGrupo=" + idGrupo, true);
-            conexion.send();
-        }
-    </script>
+
     <script>
         var tabla = new DataTable("#tbAlumnos", {
             searchable: true,

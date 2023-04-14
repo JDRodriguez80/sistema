@@ -42,6 +42,7 @@ if (!$_SESSION['active'] == true) {
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Descripcion</th>
+                        <th>Total</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -51,6 +52,7 @@ if (!$_SESSION['active'] == true) {
                             <td><?php echo $data['idTipoPago'] ?></td>
                             <td><?php echo $data['nombrePago'] ?></td>
                             <td><?php echo $data['descripcion'] ?></td>
+                            <td><?php echo $data['total'] ?></td>
                             <td>
                                 <a class="add" href="editarTipoPago.php?id=<?php echo $data['idTipoPago'] ?>"><i class="fa-solid fa-money-check-dollar fa-2x"></i> Editar</a>
                                 |

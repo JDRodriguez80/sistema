@@ -39,7 +39,7 @@
                 <h4>Laudatorias</h4>
                 <li><a href="registrarLaudatoria.php">Registrar Laudatória</a></li>
                 <li><a href="listarLaudatorias.php">Editar Laudatória</a></li>
-               <!--  <h4>Actas</h4>
+                <!--  <h4>Actas</h4>
                 <li><a href="#">Registrar Acta</a></li>
                 <li><a href="#">Editar Acta</a></li> -->
 
@@ -51,7 +51,7 @@
                 <h4>Evaluaciónes</h4>
                 <li><a href="calificar.php">Crear Evaluación</a></li>
                 <li><a href="reporteCalificaciones.php">Editar Evaluación</a></li>
-               <!--  <li><a href="#">Crear Comunicádo</a></li>
+                <!--  <li><a href="#">Crear Comunicádo</a></li>
                 <li><a href="#">Editar Comunicádo</a></li> -->
             </ul>
         </li>
@@ -79,9 +79,9 @@
         </li>
         <li><a href="#">Pagos</a>
             <ul>
-                <li><a href="#">Crear Págo</a></li>
-                <li><a href="#">Editar Págo</a></li>
-                <li><a href="#">Imprimir Recíbo</a></li>
+                <li><a href="registrarPago.php">Recibir Pago</a></li>
+                <li><a href="listarPagos.php">Editar Págo</a></li>
+
             </ul>
         </li>
         <li><a href="#">Mantenimiento</a>

@@ -3,28 +3,38 @@ session_start();
 require "../conexion.php";
 $conn = new Database();
 $con = $conn->conectar();
+//debug
+
+$idPago = $_GET['id'];
 $alert = '';
-$idAlumno = $_GET['id'];
-$idGrupo = $_GET['grupo'];
+
 //checando por session activa
 if (empty($_SESSION['active'])) {
-    header('location: ../index.php');
+    header('location: ../../index.php');
 }
 //checando por privilegios de usuario
 if ($_SESSION['nivelUsuario'] != 1 && $_SESSION['nivelUsuario'] != 2) {
     // header('location: index.php');
     echo "No tienes permiso para acceder a esta pagina";
 }
-//checando si se recibio el id del alumno
-if (empty($idAlumno)) {
-    // header('location: index.php');
-    echo "No se recibio el id del alumno";
-}
-//checando si se recibio el id del grupo
-if (empty($idGrupo)) {
+//checando si se recibio el id del pago
+if (empty($idPago)) {
     //header('location: index.php');
-    echo "No se recibio el id del grupo";
+    echo "No se recibio el id del pago";
 }
+//trayendo la informacion del pago
+$querry = $con->prepare("SELECT * FROM pagos inner join alumnos on pagos.idAlumno = alumnos.idAlumno inner join tipoPago on pagos.idTipoPago = tipoPago.idTipoPago INNER join personal on pagos.idPersonal=personal.idPersonal where pagos.idPago = $idPago");
+$querry->execute();
+$datos = $querry->fetchAll(PDO::FETCH_ASSOC);
+foreach ($datos as $dato) {
+    $idAlumno = $dato['idAlumno'];
+    $idGrupo = $dato['idGrupo'];
+    $idTipoPago = $dato['idTipoPago'];
+    $fecha = $dato['fechaPago'];
+    $abono = $dato['abono'];
+    $total = $dato['total'];
+}
+
 //checando por el post
 if (!empty($_POST)) {
     //checando por vacios
@@ -56,30 +66,25 @@ if (!empty($_POST)) {
             $idPersonal = $_SESSION['idUsuario'];
             $idAlumno = $_GET['id'];
             $abono = $_POST['abono'];
-            
-            
-                $querry = $con->prepare("INSERT INTO pagos(idTipoPago, fechaPago,idPersonal, idAlumno, abono, totalPago)
-                    VALUES(:idTipoPago, :fechaPago, :idPersonal, :idAlumno, :abono, :totalPago)
-                    ");
-                $querry->bindParam(":idTipoPago", $idTipoPago);
-                $querry->bindParam(":fechaPago", $fecha);
-                $querry->bindParam(":idPersonal", $idPersonal);
-                $querry->bindParam(":idAlumno", $idAlumno);
-                $querry->bindParam(":abono", $abono);
-                $querry->bindParam(":totalPago", $totalAPagar);
-                $querry->execute();
 
-                if ($querry) {
-                    $alert = '<p class="msg_save">Pago registrado correctamente</p>';
-                } else {
-                    $alert = '<p class="msg_error">Error al registrar el pago</p>';
-                }
-            
+
+            $querry = $con->prepare("UPDATE pagos SET idTipoPago = :idTipoPago, fechaPago = :fechaPago, abono = :abono  WHERE idPago = $idPago");
+            $querry->bindParam(":idTipoPago", $idTipoPago);
+            $querry->bindParam(":fechaPago", $fecha);
+            $querry->bindParam(":abono", $abono);
+            $querry->execute();
+
+            if ($querry) {
+                $alert = '<p class="msg_save">Pago actualizado correctamente</p>';
+            } else {
+                $alert = '<p class="msg_error">Error al actualizar el pago</p>';
+            }
         } else {
             $alert = '<p class="msg_error">Los datos deben ser numericos</p>';
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es-mx">
@@ -96,7 +101,7 @@ if (!empty($_POST)) {
     <?php include 'includes/header.php' ?>
     <section id="container">
         <div class="form-Registro2">
-            <h1>Resgistrar Pago</h1>
+            <h1>Editar Pago</h1>
             <form action="" method="POST">
                 <div class="alert"><?php echo isset($alert) ? $alert : '' ?></div>
 
@@ -115,18 +120,18 @@ if (!empty($_POST)) {
                 <ul>
                     <li>
                         <label for="fecha">Fecha de Pago:</label>
-                        <input type="date" name="fecha" id="fecha">
+                        <input type="date" name="fecha" value="<?php echo $fecha ?>">
                     </li>
                     <li>
                         <label for="abono">Abono $:</label>
-                        <input type="number" name="abono" id="abono" placeholder="0.00">
+                        <input type="number" name="abono" id="abono" value="<?php echo $abono ?>">
                     </li>
 
 
                 </ul>
                 <ul style=" align-items: flex-end;">
-                    <li><input type="submit" value="Registrar" class="btn_Guardar"></li>
-                    <li><input type="button" onclick="window.location.href='registrarPago.php';" value="Salir" class="btn_Danger"></li>
+                    <li><input type="submit" value="Actualizar" class="btn_Editar"></li>
+                    <li><input type="button" onclick="window.location.href='listarPagos.php';" value="Salir" class="btn_Danger"></li>
                 </ul>
 
             </form>

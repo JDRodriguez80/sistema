@@ -19,7 +19,7 @@ $result = $query->fetchAll(PDO::FETCH_ASSOC);
 //checando por post
 if (!empty($_POST)) {
     //checando por campos vacios
-    if (empty($_POST['nombre']) || empty($_POST['descripcion'])) {
+    if (empty($_POST['nombre']) || empty($_POST['descripcion'])|| empty($_POST['total'])) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios</p>';
     }
     //sanitizando datos
@@ -28,9 +28,10 @@ if (!empty($_POST)) {
 
 
     //insertando datos
-    $query = $con->prepare("Update tipoPago set nombrePago=:nombre, descripcion=:descripcion where idTipoPago=:id");
+    $query = $con->prepare("Update tipoPago set nombrePago=:nombre, descripcion=:descripcion, total=:total where idTipoPago=:id");
     $query->bindParam(":nombre", $nombre);
     $query->bindParam(":descripcion", $descripcion);
+    $query->bindParam(":total", $total);
     $query->bindParam(":id", $_GET['id']);
     $query->execute();
     if ($query) {
@@ -69,6 +70,8 @@ if (!empty($_POST)) {
 
                     <label for="descripcion">Descripcion</label>
                     <input type="text" name="descripcion" id="descripcion" value="<?php echo $data['descripcion'] ?>">
+                    <label for="precio">Precio</label>
+                    <input type="text" name="total" id="precio" value="<?php echo $data['total'] ?>">
                     <br>
                     <ul style=" align-items: flex-end;">
                         <li><input type="submit" value="Editar" class="btn_Editar"></li>

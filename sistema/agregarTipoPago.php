@@ -14,12 +14,13 @@ if ($nivel != 1 || $nivel != 2) {
 //checando por post
 if (!empty($_POST)) {
     //checando por campos vacios
-    if (empty($_POST['nombre']) || empty($_POST['descripcion'])) {
+    if (empty($_POST['nombre']) || empty($_POST['descripcion'])|| empty($_POST['precio'])) {
         $alert = '<p class="msg_error">Todos los campos son obligatorios</p>';
     }
     //sanitizando datos
     $nombre = $_POST['nombre'];
     $descripcion = $_POST['descripcion'];
+    $total = $_POST['precio'];
     //checando por duplicados
     $query = $con->prepare("SELECT * FROM tipoPago WHERE nombrePago='$nombre'");
     $query->execute();
@@ -28,9 +29,10 @@ if (!empty($_POST)) {
         $alert = '<p class="msg_error">El tipo de pago ya existe</p>';
     } else {
         //insertando datos
-        $query = $con->prepare("INSERT INTO tipoPago(nombrePago,descripcion) values(:nombre,:descripcion)");
+        $query = $con->prepare("INSERT INTO tipoPago(nombrePago,descripcion,total) values(:nombre,:descripcion,:total)");
         $query->bindParam(":nombre", $nombre);
         $query->bindParam(":descripcion", $descripcion);
+        $query->bindParam(":total", $total);
         $query->execute();
         if ($query) {
             $alert = '<p class="msg_save">Tipo de pago registrado correctamente</p>';
@@ -69,6 +71,10 @@ if (!empty($_POST)) {
                     <li>
                         <label for="descripcion">Descripcion</label>
                         <input type="text" name="descripcion" id="descripcion" placeholder="Descripcion">
+                    </li>
+                    <li>
+                        <label for="precio">Precio</label>
+                        <input type="number" name="precio" id="precio" placeholder="Precio">
                     </li>
                 </ul>
                 <ul style=" align-items: flex-end;">
